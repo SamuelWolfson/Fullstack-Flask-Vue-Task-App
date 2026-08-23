@@ -1,0 +1,11 @@
+# Python environment & cache
+venv/
+__pycache__/
+*.pyc
+
+# Node dependencies
+node_modules/
+
+# Database files & logs
+*.db
+*.log

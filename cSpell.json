@@ -1,0 +1,16 @@
+{
+  "version": "0.2",
+  "language": "en",
+  "words": [
+    "flask",
+    "sqlalchemy",
+    "psycopg",
+    "dotenv",
+    "pyvenv",
+    "pgadmin",
+    "postgres",
+    "postgresql",
+    "venv"
+  ],
+  "ignorePaths": ["venv/**", "node_modules/**", "*.pyc"]
+}
