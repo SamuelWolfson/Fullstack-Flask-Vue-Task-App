@@ -1,0 +1,28 @@
+# ==========================================
+# Backend (Python / Flask)
+# ==========================================
+.venv/
+venv/
+__pycache__/
+*.pyc
+.env
+.env.*
+!.env.example
+
+# ==========================================
+# Frontend (Node.js / Vue / Vite)
+# ==========================================
+frontend/node_modules/
+frontend/dist/
+frontend/dist-ssr/
+frontend/*.local
+frontend/.env.local
+
+# ==========================================
+# OS & Editor Files
+# ==========================================
+.DS_Store
+Thumbs.db
+*.swp
+.vscode/*
+!.vscode/settings.json

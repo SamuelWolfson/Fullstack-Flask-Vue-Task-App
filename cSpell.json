@@ -2,15 +2,18 @@
   "version": "0.2",
   "language": "en",
   "words": [
-    "flask",
-    "sqlalchemy",
-    "psycopg",
     "dotenv",
-    "pyvenv",
+    "ehthumbs",
+    "flask",
     "pgadmin",
     "postgres",
     "postgresql",
-    "venv"
+    "psycopg",
+    "pytest",
+    "pyvenv",
+    "sqlalchemy",
+    "venv",
+    "Vite"
   ],
   "ignorePaths": ["venv/**", "node_modules/**", "*.pyc"]
 }

@@ -1,3 +1,25 @@
 {
-  "cSpell.words": ["pycache", "samw", "venv"]
+  "cSpell.words": ["pycache", "samw", "venv"],
+  "editor.formatOnSave": true,
+
+  // Python Formatting (Black)
+  "[python]": {
+    "editor.defaultFormatter": "ms-python.black-formatter",
+    "editor.formatOnSave": true
+  },
+  "black-formatter.path": ["py", "-m", "black"],
+
+  // Frontend Formatting (Prettier)
+  "[vue]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[jsonc]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  }
 }
