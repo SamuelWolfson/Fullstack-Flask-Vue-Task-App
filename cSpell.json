@@ -2,18 +2,33 @@
   "version": "0.2",
   "language": "en",
   "words": [
+    "axios",
+    "backref",
     "dotenv",
     "ehthumbs",
     "flask",
+    "itsdangerous",
+    "linecap",
+    "mypy",
+    "pathspec",
     "pgadmin",
+    "Pinia",
+    "platformdirs",
     "postgres",
     "postgresql",
     "psycopg",
     "pytest",
+    "pytokens",
     "pyvenv",
     "sqlalchemy",
+    "tzdata",
     "venv",
-    "Vite"
+    "Vite",
+    "Werkzeug"
   ],
-  "ignorePaths": ["venv/**", "node_modules/**", "*.pyc"]
+  "ignorePaths": [
+    "venv/**",
+    "node_modules/**",
+    "*.pyc"
+  ]
 }
