@@ -17,6 +17,7 @@
     "postgres",
     "postgresql",
     "psycopg",
+    "pyproject",
     "pytest",
     "pytokens",
     "pyvenv",

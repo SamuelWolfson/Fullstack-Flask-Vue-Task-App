@@ -39,6 +39,18 @@ export const useTaskStore = defineStore('task', {
           this.tasks[index] = response.data
         }
       } catch (err) {
+        this.error = err.response?.data?.error || 'Failed to toggle task'
+      }
+    },
+
+    async updateTask(taskId, updates) {
+      try {
+        const response = await api.patch(`/tasks/${taskId}`, updates)
+        const index = this.tasks.findIndex((t) => t.id === taskId)
+        if (index !== -1) {
+          this.tasks[index] = response.data
+        }
+      } catch (err) {
         this.error = err.response?.data?.error || 'Failed to update task'
       }
     },

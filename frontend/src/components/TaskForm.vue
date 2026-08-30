@@ -1,49 +1,61 @@
-<template>
-  <form @submit.prevent="handleSubmit" class="task-form">
-    <input
-      v-model="title"
-      type="text"
-      placeholder="What needs to be done?"
-      required
-    />
-    <button type="submit">Add Task</button>
-  </form>
-</template>
-
 <script setup>
 import { ref } from 'vue'
 import { useTaskStore } from '../stores/task'
+import BaseInput from './common/BaseInput.vue'
+import BaseButton from './common/BaseButton.vue'
 
 const title = ref('')
+const loading = ref(false)
 const taskStore = useTaskStore()
 
 const handleSubmit = async () => {
   if (!title.value.trim()) return
-  await taskStore.addTask(title.value)
-  title.value = ''
+  loading.value = true
+  try {
+    await taskStore.addTask(title.value)
+    title.value = ''
+  } finally {
+    loading.value = false
+  }
 }
 </script>
+
+<template>
+  <form @submit.prevent="handleSubmit" class="task-form">
+    <div class="input-wrapper">
+      <BaseInput
+        id="task-title"
+        v-model="title"
+        placeholder="What needs to be done?"
+        required
+      />
+    </div>
+    <BaseButton type="submit" :loading="loading">
+      Add Task
+    </BaseButton>
+  </form>
+</template>
 
 <style scoped>
 .task-form {
   display: flex;
-  gap: 10px;
-  margin-bottom: 20px;
+  gap: 12px;
+  align-items: flex-start;
+  margin-bottom: 24px;
 }
 
-input {
+.input-wrapper {
   flex: 1;
-  padding: 8px 12px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
 }
 
-button {
-  padding: 8px 16px;
-  background-color: #4caf50;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
+/* Override BaseInput default bottom margin for inline layout */
+:deep(.form-group) {
+  margin-bottom: 0;
+}
+
+:deep(.base-btn) {
+  width: auto;
+  white-space: nowrap;
+  padding: 10px 20px;
 }
 </style>
