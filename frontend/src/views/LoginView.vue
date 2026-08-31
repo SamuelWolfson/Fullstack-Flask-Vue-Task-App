@@ -1,3 +1,24 @@
+<script setup>
+import { ref } from 'vue'
+import { useRouter } from 'vue-router'
+import { useAuthStore } from '../stores/auth'
+import AuthCard from '../components/common/AuthCard.vue'
+import BaseInput from '../components/common/BaseInput.vue'
+import BaseButton from '../components/common/BaseButton.vue'
+
+const email = ref('')
+const password = ref('')
+const authStore = useAuthStore()
+const router = useRouter()
+
+const handleLogin = async () => {
+  try {
+    await authStore.login(email.value, password.value)
+    router.push({ name: 'Dashboard' })
+  } catch (err) {}
+}
+</script>
+
 <template>
   <AuthCard
     icon="✓"
@@ -41,27 +62,6 @@
     </template>
   </AuthCard>
 </template>
-
-<script setup>
-import { ref } from 'vue'
-import { useRouter } from 'vue-router'
-import { useAuthStore } from '../stores/auth'
-import AuthCard from '../components/common/AuthCard.vue'
-import BaseInput from '../components/common/BaseInput.vue'
-import BaseButton from '../components/common/BaseButton.vue'
-
-const email = ref('')
-const password = ref('')
-const authStore = useAuthStore()
-const router = useRouter()
-
-const handleLogin = async () => {
-  try {
-    await authStore.login(email.value, password.value)
-    router.push({ name: 'Dashboard' })
-  } catch (err) {}
-}
-</script>
 
 <style scoped>
 .forgot-link, .link {

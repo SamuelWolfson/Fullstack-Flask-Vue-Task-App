@@ -1,3 +1,27 @@
+<script setup>
+import { onMounted } from 'vue'
+import { useRouter } from 'vue-router'
+import { useAuthStore } from '../stores/auth'
+import { useTaskStore } from '../stores/task'
+
+import BaseButton from '../components/common/BaseButton.vue'
+import TaskForm from '../components/TaskForm.vue'
+import TaskList from '../components/TaskList.vue'
+
+const authStore = useAuthStore()
+const taskStore = useTaskStore()
+const router = useRouter()
+
+onMounted(() => {
+taskStore.fetchTasks()
+})
+
+const handleLogout = () => {
+authStore.logout()
+router.push({ name: 'Login' })
+}
+</script>
+
 <template>
   <div class="dashboard-wrapper">
     <div class="dashboard-card">
@@ -16,39 +40,15 @@
             Logout
           </BaseButton>
         </div>
-      </header>
+      </header>  
 
       <main class="dashboard-main">
         <TaskForm />
         <TaskList />
-      </main>
-    </div>
-  </div>
+      </main>  
+    </div>  
+  </div>    
 </template>
-
-<script setup>
-import { onMounted } from 'vue'
-import { useRouter } from 'vue-router'
-import { useAuthStore } from '../stores/auth'
-import { useTaskStore } from '../stores/task'
-
-import BaseButton from '../components/common/BaseButton.vue'
-import TaskForm from '../components/TaskForm.vue'
-import TaskList from '../components/TaskList.vue'
-
-const authStore = useAuthStore()
-const taskStore = useTaskStore()
-const router = useRouter()
-
-onMounted(() => {
-  taskStore.fetchTasks()
-})
-
-const handleLogout = () => {
-  authStore.logout()
-  router.push({ name: 'Login' })
-}
-</script>
 
 <style scoped>
 .dashboard-wrapper {

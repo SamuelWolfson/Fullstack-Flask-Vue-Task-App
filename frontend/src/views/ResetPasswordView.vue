@@ -1,43 +1,3 @@
-<template>
-  <AuthCard
-    icon="🔒"
-    title="Reset Password"
-    subtitle="Enter your new password below"
-    :error-message="error"
-    :success-message="message"
-  >
-    <form @submit.prevent="handleResetPassword">
-      <BaseInput
-        id="password"
-        label="New Password"
-        type="password"
-        v-model="password"
-        placeholder="••••••••"
-        required
-        autocomplete="new-password"
-      />
-
-      <BaseInput
-        id="confirmPassword"
-        label="Confirm Password"
-        type="password"
-        v-model="confirmPassword"
-        placeholder="••••••••"
-        required
-        autocomplete="new-password"
-      />
-
-      <BaseButton type="submit" :loading="loading">
-        Update Password
-      </BaseButton>
-    </form>
-
-    <template #footer>
-      <router-link to="/login" class="link">Back to Sign In</router-link>
-    </template>
-  </AuthCard>
-</template>
-
 <script setup>
 import { ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
@@ -83,6 +43,46 @@ const handleResetPassword = async () => {
   }
 }
 </script>
+
+<template>
+  <AuthCard
+    icon="🔒"
+    title="Reset Password"
+    subtitle="Enter your new password below"
+    :error-message="error"
+    :success-message="message"
+  >
+    <form @submit.prevent="handleResetPassword">
+      <BaseInput
+        id="password"
+        label="New Password"
+        type="password"
+        v-model="password"
+        placeholder="••••••••"
+        required
+        autocomplete="new-password"
+      />
+
+      <BaseInput
+        id="confirmPassword"
+        label="Confirm Password"
+        type="password"
+        v-model="confirmPassword"
+        placeholder="••••••••"
+        required
+        autocomplete="new-password"
+      />
+
+      <BaseButton type="submit" :loading="loading">
+        Update Password
+      </BaseButton>
+    </form>
+
+    <template #footer>
+      <router-link to="/login" class="link">Back to Sign In</router-link>
+    </template>
+  </AuthCard>
+</template>
 
 <style scoped>
 .link {
