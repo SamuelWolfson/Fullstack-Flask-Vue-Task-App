@@ -46,7 +46,6 @@ const handleSubmit = async () => {
   flex: 1;
 }
 
-/* Override BaseInput default bottom margin for inline layout */
 :deep(.form-group) {
   margin-bottom: 0;
 }

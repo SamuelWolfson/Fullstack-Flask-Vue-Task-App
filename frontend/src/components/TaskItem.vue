@@ -53,7 +53,6 @@ const handleDelete = async () => {
 
 <template>
   <div :class="['task-item', { completed: task.completed }]">
-    <!-- View Mode -->
     <div v-if="!isEditing" class="task-content">
       <label class="checkbox-container">
         <input
@@ -61,7 +60,6 @@ const handleDelete = async () => {
           :checked="task.completed"
           @change="handleToggle"
         />
-        <span class="checkmark"></span>
       </label>
 
       <span class="task-title" @dblclick="enableEdit">
@@ -83,7 +81,6 @@ const handleDelete = async () => {
       </div>
     </div>
 
-    <!-- Edit Mode -->
     <form v-else @submit.prevent="saveEdit" class="edit-form">
       <div class="edit-input-wrapper">
         <BaseInput id="edit-task-input" v-model="editTitle" required />
