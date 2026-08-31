@@ -109,7 +109,6 @@ class Task(db.Model):
         }
 
 
-# Authentication Decorator
 def token_required(f):
     @wraps(f)
     def decorated(*args, **kwargs):
@@ -135,7 +134,6 @@ def token_required(f):
     return decorated
 
 
-# User Routes
 @app.route("/users", methods=["GET"])
 def get_users():
     users = User.query.all()
@@ -223,7 +221,6 @@ def forgot_password():
         200,
     )
 
-
 @app.route("/reset-password", methods=["POST"])
 def reset_password():
     data = request.get_json() or {}
@@ -237,13 +234,17 @@ def reset_password():
     if not user:
         return jsonify({"error": "Invalid or expired token"}), 400
 
+    if user.check_password(new_password):
+        return (
+            jsonify({"error": "New password cannot be the same as your old password"}),
+            400,
+        )
+
     user.set_password(new_password)
     db.session.commit()
 
     return jsonify({"message": "Password updated successfully"}), 200
 
-
-# Protected Task Routes
 @app.route("/tasks", methods=["GET"])
 @token_required
 def get_tasks(current_user):
