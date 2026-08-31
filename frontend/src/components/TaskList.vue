@@ -1,57 +1,51 @@
 <script setup>
-import { computed } from 'vue'
-import { useTaskStore } from '../stores/task'
-import TaskItem from './TaskItem.vue'
+import { computed } from 'vue';
+import { useTaskStore } from '../stores/task';
+import TaskItem from './TaskItem.vue';
 
-const taskStore = useTaskStore()
+const taskStore = useTaskStore();
 
 const activeTasks = computed(() => {
-  return taskStore.tasks.filter(task => !task.completed)
-})
+  return taskStore.tasks.filter((task) => !task.completed);
+});
 
 const completedTasks = computed(() => {
-  return taskStore.tasks.filter(task => task.completed)
-})
+  return taskStore.tasks.filter((task) => task.completed);
+});
 </script>
 
 <template>
   <div class="task-list-wrapper">
-    <!-- Loading State -->
     <div v-if="taskStore.loading" class="state-container">
       <div class="spinner"></div>
       <p>Loading tasks...</p>
     </div>
 
-    <!-- Empty State -->
-    <div v-else-if="taskStore.tasks.length === 0" class="state-container empty-state">
+    <div
+      v-else-if="taskStore.tasks.length === 0"
+      class="state-container empty-state"
+    >
       <div class="empty-icon">📝</div>
       <p class="empty-title">No tasks found</p>
       <p class="empty-subtitle">Add a task above to get started!</p>
     </div>
 
     <div v-else class="tasks-sections">
-      <!-- Active Tasks -->
       <section class="task-group">
-        <h3 class="section-title">
-          Active Tasks ({{ activeTasks.length }})
-        </h3>
-        
+        <h3 class="section-title">Active Tasks ({{ activeTasks.length }})</h3>
+
         <div v-if="activeTasks.length > 0" class="tasks-container">
-          <TaskItem
-            v-for="task in activeTasks"
-            :key="task.id"
-            :task="task"
-          />
+          <TaskItem v-for="task in activeTasks" :key="task.id" :task="task" />
         </div>
         <p v-else class="empty-group-text">All caught up! No active tasks.</p>
       </section>
 
-      <!-- Completed Tasks (Less Visible) -->
-      <section v-if="completedTasks.length > 0" class="task-group completed-group">
-        <h3 class="section-title">
-          Completed ({{ completedTasks.length }})
-        </h3>
-        
+      <section
+        v-if="completedTasks.length > 0"
+        class="task-group completed-group"
+      >
+        <h3 class="section-title">Completed ({{ completedTasks.length }})</h3>
+
         <div class="tasks-container completed-list">
           <TaskItem
             v-for="task in completedTasks"

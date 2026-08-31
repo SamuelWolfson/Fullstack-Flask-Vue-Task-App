@@ -3,10 +3,10 @@ defineProps({
   type: { type: String, default: 'button' },
   disabled: { type: Boolean, default: false },
   loading: { type: Boolean, default: false },
-  variant: { type: String, default: 'primary' } // 'primary', 'secondary', 'danger'
-})
+  variant: { type: String, default: 'primary' },
+});
 
-defineEmits(['click'])
+defineEmits(['click']);
 </script>
 
 <template>
@@ -78,6 +78,8 @@ defineEmits(['click'])
 }
 
 @keyframes spin {
-  to { transform: rotate(360deg); }
+  to {
+    transform: rotate(360deg);
+  }
 }
 </style>

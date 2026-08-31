@@ -1,54 +1,54 @@
 <script setup>
-import { ref } from 'vue'
-import { useTaskStore } from '../stores/task'
-import BaseButton from './common/BaseButton.vue'
-import BaseInput from './common/BaseInput.vue'
+import { ref } from 'vue';
+import { useTaskStore } from '../stores/task';
+import BaseButton from './common/BaseButton.vue';
+import BaseInput from './common/BaseInput.vue';
 
 const props = defineProps({
   task: {
     type: Object,
-    required: true
-  }
-})
+    required: true,
+  },
+});
 
-const taskStore = useTaskStore()
-const isEditing = ref(false)
-const isDeleting = ref(false)
-const isSaving = ref(false)
-const editTitle = ref('')
+const taskStore = useTaskStore();
+const isEditing = ref(false);
+const isDeleting = ref(false);
+const isSaving = ref(false);
+const editTitle = ref('');
 
 const handleToggle = async () => {
-  await taskStore.toggleTask(props.task)
-}
+  await taskStore.toggleTask(props.task);
+};
 
 const enableEdit = () => {
-  editTitle.value = props.task.title
-  isEditing.value = true
-}
+  editTitle.value = props.task.title;
+  isEditing.value = true;
+};
 
 const cancelEdit = () => {
-  isEditing.value = false
-}
+  isEditing.value = false;
+};
 
 const saveEdit = async () => {
-  if (!editTitle.value.trim()) return
-  isSaving.value = true
+  if (!editTitle.value.trim()) return;
+  isSaving.value = true;
   try {
-    await taskStore.updateTask(props.task.id, { title: editTitle.value })
-    isEditing.value = false
+    await taskStore.updateTask(props.task.id, { title: editTitle.value });
+    isEditing.value = false;
   } finally {
-    isSaving.value = false
+    isSaving.value = false;
   }
-}
+};
 
 const handleDelete = async () => {
-  isDeleting.value = true
+  isDeleting.value = true;
   try {
-    await taskStore.deleteTask(props.task.id)
+    await taskStore.deleteTask(props.task.id);
   } finally {
-    isDeleting.value = false
+    isDeleting.value = false;
   }
-}
+};
 </script>
 
 <template>
@@ -69,11 +69,7 @@ const handleDelete = async () => {
       </span>
 
       <div class="task-actions">
-        <BaseButton
-          variant="secondary"
-          class="action-btn"
-          @click="enableEdit"
-        >
+        <BaseButton variant="secondary" class="action-btn" @click="enableEdit">
           Edit
         </BaseButton>
         <BaseButton
@@ -90,28 +86,19 @@ const handleDelete = async () => {
     <!-- Edit Mode -->
     <form v-else @submit.prevent="saveEdit" class="edit-form">
       <div class="edit-input-wrapper">
-        <BaseInput
-          id="edit-task-input"
-          v-model="editTitle"
-          required
-        />
+        <BaseInput id="edit-task-input" v-model="editTitle" required />
       </div>
       <div class="edit-actions">
         <BaseButton type="submit" class="action-btn" :loading="isSaving">
           Save
         </BaseButton>
-        <BaseButton
-          variant="secondary"
-          class="action-btn"
-          @click="cancelEdit"
-        >
+        <BaseButton variant="secondary" class="action-btn" @click="cancelEdit">
           Cancel
         </BaseButton>
       </div>
     </form>
   </div>
 </template>
-
 
 <style scoped>
 .task-item {

@@ -1,5 +1,5 @@
 <script setup>
-import { ref, computed } from 'vue'
+import { ref, computed } from 'vue';
 
 const props = defineProps({
   id: { type: String, required: true },
@@ -8,19 +8,19 @@ const props = defineProps({
   modelValue: { type: String, default: '' },
   placeholder: { type: String, default: '' },
   required: { type: Boolean, default: false },
-  autocomplete: { type: String, default: 'off' }
-})
+  autocomplete: { type: String, default: 'off' },
+});
 
-defineEmits(['update:modelValue'])
+defineEmits(['update:modelValue']);
 
-const showPassword = ref(false)
+const showPassword = ref(false);
 
 const computedType = computed(() => {
   if (props.type === 'password') {
-    return showPassword.value ? 'text' : 'password'
+    return showPassword.value ? 'text' : 'password';
   }
-  return props.type
-})
+  return props.type;
+});
 </script>
 
 <template>
@@ -29,7 +29,7 @@ const computedType = computed(() => {
       <label v-if="label" :for="id" class="form-label">{{ label }}</label>
       <slot name="link"></slot>
     </div>
-    
+
     <div class="input-wrapper">
       <input
         :id="id"
@@ -77,8 +77,12 @@ const computedType = computed(() => {
           stroke-linejoin="round"
         >
           <path d="M9.88 9.88a3 3 0 1 0 4.24 4.24" />
-          <path d="M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68" />
-          <path d="M6.61 6.61A13.52 13.52 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61" />
+          <path
+            d="M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68"
+          />
+          <path
+            d="M6.61 6.61A13.52 13.52 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61"
+          />
           <line x1="2" x2="22" y1="2" y2="22" />
         </svg>
       </button>

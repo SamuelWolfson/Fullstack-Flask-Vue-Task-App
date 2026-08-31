@@ -1,47 +1,47 @@
 <script setup>
-import { ref } from 'vue'
-import { useRoute, useRouter } from 'vue-router'
-import api from '../api/axios'
-import AuthCard from '../components/common/AuthCard.vue'
-import BaseInput from '../components/common/BaseInput.vue'
-import BaseButton from '../components/common/BaseButton.vue'
+import { ref } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
+import api from '../api/axios';
+import AuthCard from '../components/common/AuthCard.vue';
+import BaseInput from '../components/common/BaseInput.vue';
+import BaseButton from '../components/common/BaseButton.vue';
 
-const password = ref('')
-const confirmPassword = ref('')
-const message = ref('')
-const error = ref('')
-const loading = ref(false)
+const password = ref('');
+const confirmPassword = ref('');
+const message = ref('');
+const error = ref('');
+const loading = ref(false);
 
-const route = useRoute()
-const router = useRouter()
-const token = route.query.token
+const route = useRoute();
+const router = useRouter();
+const token = route.query.token;
 
 const handleResetPassword = async () => {
-  message.value = ''
-  error.value = ''
+  message.value = '';
+  error.value = '';
 
   if (password.value !== confirmPassword.value) {
-    error.value = 'Passwords do not match'
-    return
+    error.value = 'Passwords do not match';
+    return;
   }
 
-  loading.value = true
+  loading.value = true;
 
   try {
     const response = await api.post('/reset-password', {
       token,
-      password: password.value
-    })
-    message.value = response.data.message
+      password: password.value,
+    });
+    message.value = response.data.message;
     setTimeout(() => {
-      router.push({ name: 'Login' })
-    }, 2000)
+      router.push({ name: 'Login' });
+    }, 2000);
   } catch (err) {
-    error.value = err.response?.data?.error || 'Failed to reset password'
+    error.value = err.response?.data?.error || 'Failed to reset password';
   } finally {
-    loading.value = false
+    loading.value = false;
   }
-}
+};
 </script>
 
 <template>

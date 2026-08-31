@@ -1,5 +1,4 @@
-<script setup>
-</script>
+<script setup></script>
 
 <template>
   <div id="app">
@@ -8,7 +7,8 @@
 </template>
 
 <style>
-html, body {
+html,
+body {
   margin: 0;
   padding: 0;
   width: 100%;
@@ -17,7 +17,9 @@ html, body {
   box-sizing: border-box;
 }
 
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   box-sizing: inherit;
 }
 

@@ -1,25 +1,25 @@
 <script setup>
-import { onMounted } from 'vue'
-import { useRouter } from 'vue-router'
-import { useAuthStore } from '../stores/auth'
-import { useTaskStore } from '../stores/task'
+import { onMounted } from 'vue';
+import { useRouter } from 'vue-router';
+import { useAuthStore } from '../stores/auth';
+import { useTaskStore } from '../stores/task';
 
-import BaseButton from '../components/common/BaseButton.vue'
-import TaskForm from '../components/TaskForm.vue'
-import TaskList from '../components/TaskList.vue'
+import BaseButton from '../components/common/BaseButton.vue';
+import TaskForm from '../components/TaskForm.vue';
+import TaskList from '../components/TaskList.vue';
 
-const authStore = useAuthStore()
-const taskStore = useTaskStore()
-const router = useRouter()
+const authStore = useAuthStore();
+const taskStore = useTaskStore();
+const router = useRouter();
 
 onMounted(() => {
-taskStore.fetchTasks()
-})
+  taskStore.fetchTasks();
+});
 
 const handleLogout = () => {
-authStore.logout()
-router.push({ name: 'Login' })
-}
+  authStore.logout();
+  router.push({ name: 'Login' });
+};
 </script>
 
 <template>
@@ -40,14 +40,14 @@ router.push({ name: 'Login' })
             Logout
           </BaseButton>
         </div>
-      </header>  
+      </header>
 
       <main class="dashboard-main">
         <TaskForm />
         <TaskList />
-      </main>  
-    </div>  
-  </div>    
+      </main>
+    </div>
+  </div>
 </template>
 
 <style scoped>
@@ -57,7 +57,9 @@ router.push({ name: 'Login' })
   padding: 40px 20px;
   display: flex;
   justify-content: center;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-family:
+    -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial,
+    sans-serif;
 }
 
 .dashboard-card {

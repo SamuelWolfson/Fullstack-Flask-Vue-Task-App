@@ -32,7 +32,6 @@ app.config["SQLALCHEMY_DATABASE_URI"] = (
 )
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
-# Mail Configuration
 app.config["MAIL_SERVER"] = os.getenv("MAIL_SERVER", "smtp.gmail.com")
 app.config["MAIL_PORT"] = int(os.getenv("MAIL_PORT", 587))
 app.config["MAIL_USE_TLS"] = os.getenv("MAIL_USE_TLS", "True") == "True"
@@ -78,9 +77,7 @@ class User(db.Model):
     @staticmethod
     def verify_reset_token(token):
         try:
-            payload = jwt.decode(
-                token, app.config["SECRET_KEY"], algorithms=["HS256"]
-            )
+            payload = jwt.decode(token, app.config["SECRET_KEY"], algorithms=["HS256"])
             return db.session.get(User, payload["user_id"])
         except (jwt.ExpiredSignatureError, jwt.InvalidTokenError, KeyError):
             return None
@@ -118,9 +115,7 @@ def token_required(f):
 
         token = auth_header.split(" ")[1]
         try:
-            payload = jwt.decode(
-                token, app.config["SECRET_KEY"], algorithms=["HS256"]
-            )
+            payload = jwt.decode(token, app.config["SECRET_KEY"], algorithms=["HS256"])
             current_user = db.session.get(User, payload["user_id"])
             if not current_user:
                 return jsonify({"error": "User no longer exists"}), 401
@@ -221,6 +216,7 @@ def forgot_password():
         200,
     )
 
+
 @app.route("/reset-password", methods=["POST"])
 def reset_password():
     data = request.get_json() or {}
@@ -244,6 +240,7 @@ def reset_password():
     db.session.commit()
 
     return jsonify({"message": "Password updated successfully"}), 200
+
 
 @app.route("/tasks", methods=["GET"])
 @token_required

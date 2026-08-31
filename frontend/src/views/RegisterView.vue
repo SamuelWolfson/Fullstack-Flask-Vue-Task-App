@@ -1,22 +1,22 @@
 <script setup>
-import { ref } from 'vue'
-import { useRouter } from 'vue-router'
-import { useAuthStore } from '../stores/auth'
-import AuthCard from '../components/common/AuthCard.vue'
-import BaseInput from '../components/common/BaseInput.vue'
-import BaseButton from '../components/common/BaseButton.vue'
+import { ref } from 'vue';
+import { useRouter } from 'vue-router';
+import { useAuthStore } from '../stores/auth';
+import AuthCard from '../components/common/AuthCard.vue';
+import BaseInput from '../components/common/BaseInput.vue';
+import BaseButton from '../components/common/BaseButton.vue';
 
-const email = ref('')
-const password = ref('')
-const authStore = useAuthStore()
-const router = useRouter()
+const email = ref('');
+const password = ref('');
+const authStore = useAuthStore();
+const router = useRouter();
 
 const handleRegister = async () => {
   try {
-    await authStore.register(email.value, password.value)
-    router.push({ name: 'Dashboard' })
+    await authStore.register(email.value, password.value);
+    router.push({ name: 'Dashboard' });
   } catch (err) {}
-}
+};
 </script>
 
 <template>

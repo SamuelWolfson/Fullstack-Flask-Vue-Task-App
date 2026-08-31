@@ -1,29 +1,29 @@
 <script setup>
-import { ref } from 'vue'
-import api from '../api/axios'
-import AuthCard from '../components/common/AuthCard.vue'
-import BaseInput from '../components/common/BaseInput.vue'
-import BaseButton from '../components/common/BaseButton.vue'
+import { ref } from 'vue';
+import api from '../api/axios';
+import AuthCard from '../components/common/AuthCard.vue';
+import BaseInput from '../components/common/BaseInput.vue';
+import BaseButton from '../components/common/BaseButton.vue';
 
-const email = ref('')
-const message = ref('')
-const error = ref('')
-const loading = ref(false)
+const email = ref('');
+const message = ref('');
+const error = ref('');
+const loading = ref(false);
 
 const handleForgotPassword = async () => {
-  message.value = ''
-  error.value = ''
-  loading.value = true
+  message.value = '';
+  error.value = '';
+  loading.value = true;
 
   try {
-    const response = await api.post('/forgot-password', { email: email.value })
-    message.value = response.data.message
+    const response = await api.post('/forgot-password', { email: email.value });
+    message.value = response.data.message;
   } catch (err) {
-    error.value = err.response?.data?.error || 'Failed to send reset link'
+    error.value = err.response?.data?.error || 'Failed to send reset link';
   } finally {
-    loading.value = false
+    loading.value = false;
   }
-}
+};
 </script>
 
 <template>

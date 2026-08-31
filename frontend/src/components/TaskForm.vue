@@ -1,23 +1,23 @@
 <script setup>
-import { ref } from 'vue'
-import { useTaskStore } from '../stores/task'
-import BaseInput from './common/BaseInput.vue'
-import BaseButton from './common/BaseButton.vue'
+import { ref } from 'vue';
+import { useTaskStore } from '../stores/task';
+import BaseInput from './common/BaseInput.vue';
+import BaseButton from './common/BaseButton.vue';
 
-const title = ref('')
-const loading = ref(false)
-const taskStore = useTaskStore()
+const title = ref('');
+const loading = ref(false);
+const taskStore = useTaskStore();
 
 const handleSubmit = async () => {
-  if (!title.value.trim()) return
-  loading.value = true
+  if (!title.value.trim()) return;
+  loading.value = true;
   try {
-    await taskStore.addTask(title.value)
-    title.value = ''
+    await taskStore.addTask(title.value);
+    title.value = '';
   } finally {
-    loading.value = false
+    loading.value = false;
   }
-}
+};
 </script>
 
 <template>
@@ -30,9 +30,7 @@ const handleSubmit = async () => {
         required
       />
     </div>
-    <BaseButton type="submit" :loading="loading">
-      Add Task
-    </BaseButton>
+    <BaseButton type="submit" :loading="loading"> Add Task </BaseButton>
   </form>
 </template>
 

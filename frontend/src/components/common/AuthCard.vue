@@ -1,11 +1,11 @@
 <script setup>
 defineProps({
-    icon: { type: String, default: '' },
-    title: { type: String, default: '' },
-    subtitle: { type: String, default: '' },
-    errorMessage: { type: String, default: '' },
-    successMessage: { type: String, default: '' }
-})
+  icon: { type: String, default: '' },
+  title: { type: String, default: '' },
+  subtitle: { type: String, default: '' },
+  errorMessage: { type: String, default: '' },
+  successMessage: { type: String, default: '' },
+});
 </script>
 
 <template>
@@ -34,7 +34,6 @@ defineProps({
   </div>
 </template>
 
-
 <style scoped>
 .auth-wrapper {
   min-height: 100vh;
@@ -43,7 +42,9 @@ defineProps({
   justify-content: center;
   background-color: #f8fafc;
   padding: 20px;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-family:
+    -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial,
+    sans-serif;
 }
 
 .auth-card {
@@ -51,7 +52,9 @@ defineProps({
   max-width: 400px;
   background: #ffffff;
   border-radius: 12px;
-  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.01);
+  box-shadow:
+    0 10px 25px -5px rgba(0, 0, 0, 0.05),
+    0 8px 10px -6px rgba(0, 0, 0, 0.01);
   border: 1px solid #e2e8f0;
   padding: 32px;
 }
