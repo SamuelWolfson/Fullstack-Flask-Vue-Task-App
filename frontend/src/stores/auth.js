@@ -1,7 +1,7 @@
 import { computed, ref } from 'vue'
 import { defineStore } from 'pinia'
 import { useLocalStorage } from '@vueuse/core'
-import api from '@/api/axios'
+import { authService } from '@/services/auth'
 
 export const useAuthStore = defineStore('auth', () => {
   const user = useLocalStorage('auth_user', null)
@@ -26,11 +26,14 @@ export const useAuthStore = defineStore('auth', () => {
     loading.value = true
     error.value = ''
     try {
-      const response = await api.post('/users', { email, password })
-      setAuthData(response.data)
+      const data = await authService.register({ email, password })
+      setAuthData(data)
     } catch (err) {
       console.error('Error during registration:', err)
-      error.value = err.response?.data?.error || err.response?.data?.message || 'Registration failed'
+      error.value =
+        err.response?.data?.error ||
+        err.response?.data?.message ||
+        'Registration failed'
       throw err
     } finally {
       loading.value = false
@@ -41,11 +44,14 @@ export const useAuthStore = defineStore('auth', () => {
     loading.value = true
     error.value = ''
     try {
-      const response = await api.post('/login', { email, password })
-      setAuthData(response.data)
+      const data = await authService.login({ email, password })
+      setAuthData(data)
     } catch (err) {
       console.error('Error during login:', err)
-      error.value = err.response?.data?.error || err.response?.data?.message || 'Login failed'
+      error.value =
+        err.response?.data?.error ||
+        err.response?.data?.message ||
+        'Login failed'
       throw err
     } finally {
       loading.value = false

@@ -1,6 +1,6 @@
 <script setup>
 import { ref } from 'vue';
-import api from '../api/axios';
+import api from '../services/axios.js';
 import AuthCard from '../components/common/AuthCard.vue';
 import BaseInput from '../components/common/BaseInput.vue';
 import BaseButton from '../components/common/BaseButton.vue';

@@ -3,14 +3,19 @@ import axios from 'axios'
 const api = axios.create({
   baseURL: 'http://localhost:5000',
   headers: {
-    'Content-Type': 'application/json'
-  }
+    'Content-Type': 'application/json',
+  },
 })
 
 api.interceptors.request.use(
   (config) => {
-    const token = localStorage.getItem('token')
+    let token = localStorage.getItem('auth_token')
     if (token) {
+      try {
+        token = JSON.parse(token)
+      } catch (e) {
+        token = token.replace(/^"(.*)"$/, '$1')
+      }
       config.headers.Authorization = `Bearer ${token}`
     }
     return config
