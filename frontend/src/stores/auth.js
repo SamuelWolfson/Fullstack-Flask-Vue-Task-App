@@ -1,57 +1,66 @@
-import { defineStore } from 'pinia';
-import api from '../api/axios';
+import { computed, ref } from 'vue'
+import { defineStore } from 'pinia'
+import { useLocalStorage } from '@vueuse/core'
+import api from '@/api/axios'
 
-export const useAuthStore = defineStore('auth', {
-  state: () => ({
-    user: JSON.parse(localStorage.getItem('user')) || null,
-    token: localStorage.getItem('token') || null,
-    error: null,
-    loading: false,
-  }),
-  getters: {
-    isAuthenticated: (state) => !!state.token,
-  },
-  actions: {
-    async register(email, password) {
-      this.loading = true;
-      this.error = null;
-      try {
-        const response = await api.post('/users', { email, password });
-        this.setAuthData(response.data);
-      } catch (err) {
-        this.error = err.response?.data?.error || 'Registration failed';
-        throw err;
-      } finally {
-        this.loading = false;
-      }
-    },
+export const useAuthStore = defineStore('auth', () => {
+  const user = useLocalStorage('auth_user', null)
+  const token = useLocalStorage('auth_token', null)
 
-    async login(email, password) {
-      this.loading = true;
-      this.error = null;
-      try {
-        const response = await api.post('/login', { email, password });
-        this.setAuthData(response.data);
-      } catch (err) {
-        this.error = err.response?.data?.error || 'Login failed';
-        throw err;
-      } finally {
-        this.loading = false;
-      }
-    },
+  const error = ref('')
+  const loading = ref(false)
 
-    setAuthData(data) {
-      this.token = data.token;
-      this.user = data.user;
-      localStorage.setItem('token', data.token);
-      localStorage.setItem('user', JSON.stringify(data.user));
-    },
+  const isAuthenticated = computed(() => !!token.value)
 
-    logout() {
-      this.token = null;
-      this.user = null;
-      localStorage.removeItem('token');
-      localStorage.removeItem('user');
-    },
-  },
-});
+  const setAuthData = (data) => {
+    token.value = data.token
+    user.value = data.user
+  }
+
+  const logout = () => {
+    token.value = null
+    user.value = null
+  }
+
+  const register = async (email, password) => {
+    loading.value = true
+    error.value = ''
+    try {
+      const response = await api.post('/users', { email, password })
+      setAuthData(response.data)
+    } catch (err) {
+      console.error('Error during registration:', err)
+      error.value = err.response?.data?.error || err.response?.data?.message || 'Registration failed'
+      throw err
+    } finally {
+      loading.value = false
+    }
+  }
+
+  const login = async (email, password) => {
+    loading.value = true
+    error.value = ''
+    try {
+      const response = await api.post('/login', { email, password })
+      setAuthData(response.data)
+    } catch (err) {
+      console.error('Error during login:', err)
+      error.value = err.response?.data?.error || err.response?.data?.message || 'Login failed'
+      throw err
+    } finally {
+      loading.value = false
+    }
+  }
+
+  return {
+    user,
+    token,
+    error,
+    loading,
+    isAuthenticated,
+    register,
+    login,
+    setAuthData,
+    logout,
+  }
+})
