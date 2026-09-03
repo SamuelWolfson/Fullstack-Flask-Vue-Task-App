@@ -1,6 +1,7 @@
 <script setup>
 import { ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
+import { useAuthStore } from '../stores/auth';
 import api from '../services/axios.js';
 import AuthCard from '../components/common/AuthCard.vue';
 import BaseInput from '../components/common/BaseInput.vue';
@@ -16,32 +17,15 @@ const route = useRoute();
 const router = useRouter();
 const token = route.query.token;
 
+const authStore = useAuthStore()
+
 const handleResetPassword = async () => {
-  message.value = '';
-  error.value = '';
-
-  if (password.value !== confirmPassword.value) {
-    error.value = 'Passwords do not match';
-    return;
-  }
-
-  loading.value = true;
-
   try {
-    const response = await api.post('/reset-password', {
-      token,
-      password: password.value,
-    });
-    message.value = response.data.message;
-    setTimeout(() => {
-      router.push({ name: 'Login' });
-    }, 2000);
+    await authStore.resetPassword(token.value, password.value)
+    router.push('/login')
   } catch (err) {
-    error.value = err.response?.data?.error || 'Failed to reset password';
-  } finally {
-    loading.value = false;
   }
-};
+}
 </script>
 
 <template>

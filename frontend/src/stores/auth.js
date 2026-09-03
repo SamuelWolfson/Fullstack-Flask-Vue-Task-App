@@ -22,6 +22,20 @@ export const useAuthStore = defineStore('auth', () => {
     user.value = null
   }
 
+  const resetPassword = async (token, newPassword) => {
+    loading.value = true
+    error.value = ''
+    try {
+      const data = await authService.resetPassword(token, newPassword)
+      return data
+    } catch (err) {
+      error.value = err.response?.data?.message || 'Failed to reset password'
+      throw err
+    } finally {
+      loading.value = false
+    }
+  }
+
   const register = async (email, password) => {
     loading.value = true
     error.value = ''
@@ -68,5 +82,6 @@ export const useAuthStore = defineStore('auth', () => {
     login,
     setAuthData,
     logout,
+    resetPassword,
   }
 })
