@@ -88,6 +88,6 @@ def register_auth_routes(app, limiter):
 
         token = authenticate_user(email, password)
         if not token:
-            return jsonify({"error": "Invalid credentials"}), 401
+            return jsonify({"error": "Invalid credentials, change them"}), 401
 
         return jsonify({"message": "Login successful", "token": token}), 200

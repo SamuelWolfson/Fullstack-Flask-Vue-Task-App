@@ -8,8 +8,7 @@ from services.task_service import (
 )
 
 
-def register_task_routes(app, limiter):
-
+def register_task_routes(app):
     @app.route("/tasks", methods=["GET"])
     def get_tasks_handler():
         user_id, error = get_current_user_id()

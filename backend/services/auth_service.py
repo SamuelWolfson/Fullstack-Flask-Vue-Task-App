@@ -4,6 +4,51 @@ from flask import current_app, jsonify, request
 from db.database import db
 from db.models import User
 
+def create_user(email, password):
+    if not email or not password:
+        return None
+
+    email = email.lower().strip()
+
+    existing_user = User.query.filter_by(email=email).first()
+    if existing_user:
+        return None
+
+    new_user = User(email=email)
+    new_user.set_password(password)
+    try:
+        db.session.add(new_user)
+        db.session.commit()
+    except Exception as e:
+        db.session.rollback()
+        return None, "Database error accurred while creating the user: " + str(e)
+    return {
+        "id": new_user.id,
+        "email": new_user.email
+        }, None
+            
+
+
+def authenticate_user(email, password):
+
+    if not email or not password:
+        return None
+
+    email = email.lower().strip()
+
+    user = User.query.filter_by(email=email).first()
+    if not user:
+        return None
+    if not user.check_password(password):
+        return None
+
+    payload = {
+        "user_id": user.id,
+        "email": user.email,
+        "exp": jwt.datetime.datetime.utcnow() + jwt.timedelta(days=1),
+        }
+    return jwt.encode(payload, current_app.config["SECRET_KEY"], algorithm="HS256")
+    
 
 def get_current_user():
     auth_header = request.headers.get("Authorization")
