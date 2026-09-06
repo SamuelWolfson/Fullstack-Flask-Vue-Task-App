@@ -1,16 +1,14 @@
 from flask import jsonify, request
-from db.database import db
-from db.models import User
+from services.auth_service import (
+    authenticate_user,
+    create_user,
+    get_email_rate_limit_key,
+    db,
+    User,
+)
 from services.mail_service import send_reset_email
 
-from services.auth_service import (get_email_rate_limit_key,
-                                   authenticate_user,
-                                     create_user)
-
-
-
 def register_auth_routes(app, limiter):
-
     @app.route("/reset-password", methods=["POST"])
     @limiter.limit("1 per 30 seconds", key_func=get_email_rate_limit_key)
     def send_password_reset_email():
@@ -90,4 +88,4 @@ def register_auth_routes(app, limiter):
         if not token:
             return jsonify({"error": "Invalid credentials, change them"}), 401
 
-        return jsonify({"message": "Login successful", "token": token}), 200
+        return jsonify({"message": "Login successful", "token": token, "user": {"email": email}}), 200

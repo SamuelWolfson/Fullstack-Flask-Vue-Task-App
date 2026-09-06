@@ -1,48 +1,38 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import { useAuthStore } from '../stores/auth';
 
-import LoginView from '../views/LoginView.vue';
-import RegisterView from '../views/RegisterView.vue';
-import ForgotPasswordView from '../views/ForgotPasswordView.vue';
-import ResetPasswordView from '../views/ResetPasswordView.vue';
-import DashboardView from '../views/DashboardView.vue';
-import NotFoundView from '../views/NotFoundView.vue';
+import AuthView from '../views/LoginView.vue';
+import DashboardView from '../views/TaskList.vue/index.js';
 
 const routes = [
   {
+    path: '/',
+    redirect: '/login',
+  },
+  {
     path: '/login',
     name: 'Login',
-    component: LoginView,
-    meta: { requiresGuest: true },
+    component: AuthView,
   },
   {
     path: '/register',
     name: 'Register',
-    component: RegisterView,
-    meta: { requiresGuest: true },
+    component: AuthView,
   },
   {
     path: '/forgot-password',
     name: 'ForgotPassword',
-    component: ForgotPasswordView,
-    meta: { requiresGuest: true },
+    component: AuthView,
   },
   {
     path: '/reset-password',
     name: 'ResetPassword',
-    component: ResetPasswordView,
-    meta: { requiresGuest: true },
-  },
-  {
-    path: '/',
-    name: 'Dashboard',
-    component: DashboardView,
-    meta: { requiresAuth: true },
+    component: AuthView,
   },
   {
     path: '/:pathMatch(.*)*',
     name: 'NotFound',
-    component: NotFoundView,
+    component: AuthView,
   },
 ];
 

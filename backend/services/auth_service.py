@@ -1,3 +1,4 @@
+from datetime import datetime, timedelta, timezone
 import jwt
 from flask import current_app, jsonify, request
 
@@ -45,7 +46,7 @@ def authenticate_user(email, password):
     payload = {
         "user_id": user.id,
         "email": user.email,
-        "exp": jwt.datetime.datetime.utcnow() + jwt.timedelta(days=1),
+        "exp": datetime.now(timezone.utc) + timedelta(days=1),
         }
     return jwt.encode(payload, current_app.config["SECRET_KEY"], algorithm="HS256")
     
@@ -94,8 +95,6 @@ def process_password_reset(token, new_password):
         return "Reset link has expired", 400
     except jwt.InvalidTokenError:
         return "Invalid token", 400
-
-from flask import jsonify, request
 
 
 def get_token_from_request():

@@ -33,14 +33,13 @@ def register_task_routes(app):
         task = create_task(
             user_id=user_id,
             title=title,
-            description=data.get("description", ""),
         )
         return (
-            jsonify({"message": "Task created successfully", "task": task}),
-            201,
-        )
+                jsonify({"message": "Task created successfully", "task": task}),
+                201,
+            )
 
-    @app.route("/tasks/<task_id>", methods=["PUT"])
+    @app.route("/tasks/<task_id>", methods=["PATCH"])
     def update_task_handler(task_id):
         user_id, error = get_current_user_id()
         if error:

@@ -4,7 +4,7 @@ import { useLocalStorage } from '@vueuse/core'
 import { authService } from '@/services/auth'
 
 export const useAuthStore = defineStore('auth', () => {
-  const user = useLocalStorage('auth_user', null)
+  const user = useLocalStorage('auth_user', '')
   const token = useLocalStorage('auth_token', null)
 
   const error = ref('')
@@ -12,14 +12,14 @@ export const useAuthStore = defineStore('auth', () => {
 
   const isAuthenticated = computed(() => !!token.value)
 
-  const setAuthData = (data) => {
+  const setAuthData = (data, email = '') => {
     token.value = data.token
-    user.value = data.user
+    user.value = data.user?.email || email
   }
 
   const logout = () => {
     token.value = null
-    user.value = null
+    user.value = ''
   }
 
   const resetPassword = async (token, newPassword) => {
@@ -41,7 +41,7 @@ export const useAuthStore = defineStore('auth', () => {
     error.value = ''
     try {
       const data = await authService.register({ email, password })
-      setAuthData(data)
+      setAuthData(data, email)
     } catch (err) {
       console.error('Error during registration:', err)
       error.value =
@@ -58,7 +58,7 @@ export const useAuthStore = defineStore('auth', () => {
     loading.value = true
     error.value = ''
     try {
-      const data = await authService.login({ email, password })
+      const data = await authService.login(email, password)
       setAuthData(data)
     } catch (err) {
       console.error('Error during login:', err)

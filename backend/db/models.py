@@ -50,3 +50,11 @@ class Task(db.Model):
     title = db.Column(db.String(120), nullable=False)
     completed = db.Column(db.Boolean, default=False)
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
+
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "title": self.title,
+            "completed": self.completed,
+            "user_id": self.user_id,
+        }
