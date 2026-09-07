@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import { useAuthStore } from '../stores/auth';
 
-import AuthView from '../views/LoginView.vue';
+import Login from '../';
 import DashboardView from '../views/TaskList.vue/index.js';
 
 const routes = [
@@ -12,7 +12,7 @@ const routes = [
   {
     path: '/login',
     name: 'Login',
-    component: AuthView,
+    component: LoginView,
   },
   {
     path: '/register',
@@ -20,7 +20,12 @@ const routes = [
     component: AuthView,
   },
   {
-    path: '/forgot-password',
+    path: '/task-list',
+    name: 'TaskList',
+    component: AuthView,
+  },
+  {
+    path: '/email-to-reset-password',
     name: 'ForgotPassword',
     component: AuthView,
   },

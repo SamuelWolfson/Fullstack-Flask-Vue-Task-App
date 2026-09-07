@@ -3,6 +3,9 @@ import vue from '@vitejs/plugin-vue';
 import { fileURLToPath, URL } from 'node:url';
 
 export default defineConfig({
+    define: {
+    __VUE_PROD_DEVTOOLS__: true
+  },
   plugins: [vue()],
   resolve: {
     alias: {
